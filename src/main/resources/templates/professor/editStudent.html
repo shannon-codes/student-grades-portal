@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!--/*/ <th:block th:include="professor/index.html :: headerfiles">
+</th:block> /*/-->
+</head>
+<body>
+
+<header th:insert="professor/index.html :: header"></header>
+
+<h1 th:text="'Edit Grades for ' + ${student.name}"></h1>
+<div style="color:red" th:each="error:${errorMessage}" th:text="${error}"></div>
+<form action="#" th:action="@{/saveEditStudent}" method="post" th:object="${student}">
+<input type="hidden" th:field="*{id}"/>
+<input type="hidden" th:field="*{name}"/>
+<input type="hidden" th:field="*{studentId}"/>
+Exercises (0-100):<input type="number" th:field="*{exercises}"><br>
+Assignment 1 (0-100):<input type="number" step="0.01" th:field="*{assignment1}"><br>
+Assignment 2 (0-100):<input type="number" step="0.01" th:field="*{assignment2}"><br>
+Midterm (0-100):<input type="number" step="0.01" th:field="*{midterm}"><br>
+Final Exam (0-100):<input type="number" step="0.01" th:field="*{finalExam}"><br>
+Final Project (0-100):<input type="number" step="0.01" th:field="*{finalProject}"><br>
+<input type=submit value="Edit Student">
+</form>
+<p><a href="/" th:href="@{/professor}">Go Back to Professor Main Page</a>
+
+</body>
+</html>
+

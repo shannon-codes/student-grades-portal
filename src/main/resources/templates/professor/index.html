@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:fragment="headerfiles">
+<title>Secured Area for Professor</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/" th:href="@{/}">
+			Sheridan Student Grades Management<span class="sr-only">(current)</span>
+					</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="/professor"
+						th:href="@{/professor}">Professors Area</a></li>
+					
+				</ul>
+				<div th:fragment="logout" class="logout"
+							sec:authorize="isAuthenticated()">
+
+
+							<form action="#" th:action="@{/logout}" method="post">
+								<input type="submit" value="logout" />
+							</form>
+							<!--  User's name: <span sec:authentication="name"></span><br>
+Roles : <span sec:authentication="principal.authorities"></span>-->
+						</div>
+			</div>
+		</nav>
+		<div class="jumbotron text-center"
+			style="background-image: url(/img/school.jpg); background-size: auto; background-repeat: repeat-x;">
+			<h1><mark>Professor Grade Management Area</mark></h1>
+		
+		</div>
+</div>
+
+<!-- 		  <nav class="navbar navbar-expand-sm bg-light">
+
+			Links
+			<ul class="navbar-nav">
+				<li class="nav-item"><a href="/" th:href="@{/}">Main&nbsp;&nbsp;&nbsp;</a>
+				</li>
+				<li class="nav-item"><a href="/professor"
+					th:href="@{/professor}">Professor Home&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				</li>
+				<li class="nav-item">
+					<div th:fragment="logout" class="logout"
+						sec:authorize="isAuthenticated()">
+
+
+						<form action="#" th:action="@{/logout}" method="post">
+							<input type="submit" value="logout" />
+						</form>
+						<br>
+						 User's name: <span sec:authentication="name"></span><br>
+Roles : <span sec:authentication="principal.authorities"></span>
+					</div>
+				</li>
+			</ul>
+
+		</nav> -->
+
+
+	</div>
+	<div class="container">
+
+		<div class="row">
+			<div class="col">
+				<h1>All Students' Information</h1>
+				<table class="table table-bordered table-hover">
+					<tr>
+						<th>Name</th>
+						<th>Student id</th>
+						<th>Exercises</th>
+						<th>Assignment 1</th>
+						<th>Assignment 2</th>
+						<th>Midterm</th>
+						<th>Final Exam</th>
+						<th>Final Project</th>
+						<th>Weighted Average</th>
+						<th>Letter Grade</th>
+						<th colspan="2"><a href="/" th:href="@{/createStudent}"
+							class="btn btn-info">Create Student</a></th>
+					</tr>
+					<tr th:each="s : ${students}">
+						<td th:text="${s.name}"></td>
+						<td th:text="${s.studentId}"></td>
+						<td th:text="${s.exercises} + '%' "></td>
+						<td th:text="${s.assignment1} + '%' "></td>
+						<td th:text="${s.assignment2} + '%' "></td>
+						<td th:text="${s.midterm} + '%' "></td>
+						<td th:text="${s.finalExam} + '%' "></td>
+						<td th:text="${s.finalProject} + '%' "></td>
+						<td th:text="${s.getFormattedWeightedAvg()}+ '%'"></td>
+						<td th:text="${s.calculateLetterGrade()}"></td>
+						<td><a th:href="@{/edit/{id}(id=${s.id})}"
+							class="btn btn-info">Edit</a></td>
+						<td><a th:href="@{/delete/{id}(id=${s.id})}"
+							class="btn btn-info">Delete</a></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col">
+
+				<h3 th:text="'The Overall Class Average: '+${overall}+ '%'"></h3>
+
+				<h4>Average Grades for Each Grade Category</h4>
+				<table>
+					<tr>
+						<th>Exercises</th>
+						<td th:text="${avgsByCategory[0]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Assignment 1</th>
+						<td th:text="${avgsByCategory[1]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Assignment 2</th>
+						<td th:text="${avgsByCategory[2]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Midterm</th>
+						<td th:text="${avgsByCategory[3]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Final Exam</th>
+						<td th:text="${avgsByCategory[4]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Final Project</th>
+						<td th:text="${avgsByCategory[5]} + '%' "></td>
+					</tr>
+
+				</table>
+				<br>
+			</div>
+		</div>
+
+		<!-- 		<div class="row">
+
+			<div class="col-sm-3">
+
+
+
+				<h4>Average Grades for Each Grade Category</h4>
+				<table>
+					<tr>
+						<th>Exercises</th>
+						<td th:text="${avgsByCategory[0]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Assignment 1</th>
+						<td th:text="${avgsByCategory[1]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Assignment 2</th>
+						<td th:text="${avgsByCategory[2]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Midterm</th>
+						<td th:text="${avgsByCategory[3]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Final Exam</th>
+						<td th:text="${avgsByCategory[4]} + '%' "></td>
+					</tr>
+					<tr>
+						<th>Final Project</th>
+						<td th:text="${avgsByCategory[5]} + '%' "></td>
+					</tr>
+
+				</table>
+				<br>
+			</div>
+
+			<div class="col-sm-6">
+				<h3 th:text="'The Overall Class Average: '+${overall}+ '%'"></h3>
+			</div>
+
+
+		</div> -->
+
+	</div>
+
+</body>
+</html>

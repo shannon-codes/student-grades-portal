@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!--/*/ <th:block th:include="professor/index.html :: headerfiles">
+</th:block> /*/-->
+</head>
+<body>
+
+<header th:insert="professor/index.html :: header"></header>
+
+<h1>Create a New Student</h1>
+<div style="color:red" th:each="error:${errorMessage}" th:text="${error}"></div>
+<form action="#" th:action="@{/createStudent}" method="post" th:object="${student}">
+Student Name:<input type="text" th:field="*{name}" value=""><br>
+Student ID:<input type="text" th:field="*{studentId}"><br>
+<h5>Grades</h5>
+Exercises (0-100):<input type="text" th:field="*{exercises}"><br>
+Assignment 1 (0-100):<input type="text" th:field="*{assignment1}"><br>
+Assignment 2 (0-100):<input type="text" th:field="*{assignment2}"><br>
+Midterm (0-100):<input type="text" th:field="*{midterm}"><br>
+Final Exam (0-100):<input type="text" th:field="*{finalExam}"><br>
+Final Project (0-100):<input type="text" th:field="*{finalProject}"><br>
+<input type=submit value="Create Student">
+</form>
+<p><a href="/" th:href="@{/professor}">Go Back to Professor Main Page</a>
+
+</body>
+</html>
+
+<!-- <form action="#" th:action="@{/register}" method="post">
+Student Name (Username) :<input type="text" name="name"><br>
+Student ID (Password):<input type="password" name="password"><br>
+<br>Grades<br>
+Exercises (0-100):<input type="text" name="exercises"><br>
+Assignment 1 (0-100):<input type="text" name="assignment1"><br>
+Assignment 2 (0-100):<input type="text" name="assignment2"><br>
+Midterm (0-100):<input type="text" name="midterm"><br>
+Final Exam (0-100):<input type="text" name="finalExam"><br>
+Final Project (0-100):<input type="text" name="finalProject"><br> -->
