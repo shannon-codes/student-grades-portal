@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- HEAD TEMPLATE ACCEPTS TITLE PARAMETER-->
+<head th:fragment="headerfiles (title)">
+	<title th:text="${title}"></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat"
+	rel="stylesheet">
+	<link rel="stylesheet" type="text/css" media="all"
+	href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+<body>
+
+	<!-- TOP NAVIGATION BAR TEMPLATE -->
+	<div th:fragment="navHeader">
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#myNavbar">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/" th:href="@{/}">GRADES
+						MANAGEMENT</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/student" th:href="@{/student}">Student Area</a>
+						</li>
+						<li><a href="/professor" th:href="@{/professor}">Professor
+								Area</a></li>
+						<li>
+							<div class="custom-personalize" sec:authorize="isAuthenticated()">
+								Hello, <span class="greet-custom" sec:authentication="name"></span><br>
+								Role(s): <span sec:authentication="principal.authorities"></span>
+							</div>
+						</li>
+						<li>
+							<div th:fragment="logout" class="logout"
+								sec:authorize="isAuthenticated()">
+								<form action="#" th:action="@{/logout}" method="post">
+									<input class="btn btn-info btn-lg" type="submit" value="LOGOUT" />
+								</form>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+<!-- JUMBOTRON TAKES IN TITLE PARAM -->
+	<div th:fragment="headerJumbotron (title)">
+		<div class="jumbotron text-center"
+			style="background-image: url(/img/library.jpg); background-size: auto;">
+			<h1>
+				<span th:text="${title}"
+					style="color: black; font-weight: bold; background-color: rgba(255, 255, 0);">Sheridan
+					Student Grades Portal</span>
+			</h1>
+		</div>
+	</div>
+
+</body>
+</html>

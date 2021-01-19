@@ -1,91 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head th:fragment="headerfiles">
-<title>Secured Area for Professor</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+<head>
+<th:block
+	th:include="templates/templates.html :: headerfiles (title='Secured Area for Professor')">
+</th:block>
 </head>
 <body>
-	<div th:fragment="header">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="/" th:href="@{/}">
-			Sheridan Student Grades Management<span class="sr-only">(current)</span>
-					</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNav" aria-controls="navbarNav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/professor"
-						th:href="@{/professor}">Professors Area</a></li>
-					
-				</ul>
-				<div th:fragment="logout" class="logout"
-							sec:authorize="isAuthenticated()">
+	<header th:insert="templates/templates.html :: navHeader"></header>
+
+	<div
+		th:replace="templates/templates.html :: headerJumbotron (title='Grade Book')"></div>
 
 
-							<form action="#" th:action="@{/logout}" method="post">
-								<input type="submit" value="logout" />
-							</form>
-							<!--  User's name: <span sec:authentication="name"></span><br>
-Roles : <span sec:authentication="principal.authorities"></span>-->
-						</div>
-			</div>
-		</nav>
-		<div class="jumbotron text-center"
-			style="background-image: url(/img/school.jpg); background-size: auto; background-repeat: repeat-x;">
-			<h1><mark>Professor Grade Management Area</mark></h1>
-		
-		</div>
-</div>
-
-<!-- 		  <nav class="navbar navbar-expand-sm bg-light">
-
-			Links
-			<ul class="navbar-nav">
-				<li class="nav-item"><a href="/" th:href="@{/}">Main&nbsp;&nbsp;&nbsp;</a>
-				</li>
-				<li class="nav-item"><a href="/professor"
-					th:href="@{/professor}">Professor Home&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				</li>
-				<li class="nav-item">
-					<div th:fragment="logout" class="logout"
-						sec:authorize="isAuthenticated()">
-
-
-						<form action="#" th:action="@{/logout}" method="post">
-							<input type="submit" value="logout" />
-						</form>
-						<br>
-						 User's name: <span sec:authentication="name"></span><br>
-Roles : <span sec:authentication="principal.authorities"></span>
-					</div>
-				</li>
-			</ul>
-
-		</nav> -->
-
-
-	</div>
 	<div class="container">
 
 		<div class="row">
 			<div class="col">
-				<h1>All Students' Information</h1>
-				<table class="table table-bordered table-hover">
-					<tr>
+				<table class="table table-bordered table-hover custom-shadow">
+					<tr class="info">
 						<th>Name</th>
 						<th>Student id</th>
 						<th>Exercises</th>
@@ -97,7 +30,13 @@ Roles : <span sec:authentication="principal.authorities"></span>
 						<th>Weighted Average</th>
 						<th>Letter Grade</th>
 						<th colspan="2"><a href="/" th:href="@{/createStudent}"
-							class="btn btn-info">Create Student</a></th>
+							class="btn btn-info btn-block"> <svg height="12pt"
+									viewBox="0 0 512 512" width="12pt"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" /></svg>
+								Create Student
+						</a></th>
 					</tr>
 					<tr th:each="s : ${students}">
 						<td th:text="${s.name}"></td>
@@ -111,18 +50,49 @@ Roles : <span sec:authentication="principal.authorities"></span>
 						<td th:text="${s.getFormattedWeightedAvg()}+ '%'"></td>
 						<td th:text="${s.calculateLetterGrade()}"></td>
 						<td><a th:href="@{/edit/{id}(id=${s.id})}"
-							class="btn btn-info">Edit</a></td>
+							class="btn btn-info"> <svg height="12pt"
+									viewBox="0 -1 401.52289 401" width="12pt"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="m370.589844 250.972656c-5.523438 0-10 4.476563-10 10v88.789063c-.019532 16.5625-13.4375 29.984375-30 30h-280.589844c-16.5625-.015625-29.980469-13.4375-30-30v-260.589844c.019531-16.558594 13.4375-29.980469 30-30h88.789062c5.523438 0 10-4.476563 10-10 0-5.519531-4.476562-10-10-10h-88.789062c-27.601562.03125-49.96875 22.398437-50 50v260.59375c.03125 27.601563 22.398438 49.96875 50 50h280.589844c27.601562-.03125 49.96875-22.398437 50-50v-88.792969c0-5.523437-4.476563-10-10-10zm0 0" />
+									<path
+										d="m376.628906 13.441406c-17.574218-17.574218-46.066406-17.574218-63.640625 0l-178.40625 178.40625c-1.222656 1.222656-2.105469 2.738282-2.566406 4.402344l-23.460937 84.699219c-.964844 3.472656.015624 7.191406 2.5625 9.742187 2.550781 2.546875 6.269531 3.527344 9.742187 2.566406l84.699219-23.464843c1.664062-.460938 3.179687-1.34375 4.402344-2.566407l178.402343-178.410156c17.546875-17.585937 17.546875-46.054687 0-63.640625zm-220.257812 184.90625 146.011718-146.015625 47.089844 47.089844-146.015625 146.015625zm-9.40625 18.875 37.621094 37.625-52.039063 14.417969zm227.257812-142.546875-10.605468 10.605469-47.09375-47.09375 10.609374-10.605469c9.761719-9.761719 25.589844-9.761719 35.351563 0l11.738281 11.734375c9.746094 9.773438 9.746094 25.589844 0 35.359375zm0 0" /></svg>
+								Edit
+						</a></td>
 						<td><a th:href="@{/delete/{id}(id=${s.id})}"
-							class="btn btn-info">Delete</a></td>
+							class="btn btn-info"> <svg height="12pt"
+									viewBox="-40 0 427 427.00131" width="12pt"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="m232.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0" />
+									<path
+										d="m114.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0" />
+									<path
+										d="m28.398438 127.121094v246.378906c0 14.5625 5.339843 28.238281 14.667968 38.050781 9.285156 9.839844 22.207032 15.425781 35.730469 15.449219h189.203125c13.527344-.023438 26.449219-5.609375 35.730469-15.449219 9.328125-9.8125 14.667969-23.488281 14.667969-38.050781v-246.378906c18.542968-4.921875 30.558593-22.835938 28.078124-41.863282-2.484374-19.023437-18.691406-33.253906-37.878906-33.257812h-51.199218v-12.5c.058593-10.511719-4.097657-20.605469-11.539063-28.03125-7.441406-7.421875-17.550781-11.5546875-28.0625-11.46875h-88.796875c-10.511719-.0859375-20.621094 4.046875-28.0625 11.46875-7.441406 7.425781-11.597656 17.519531-11.539062 28.03125v12.5h-51.199219c-19.1875.003906-35.394531 14.234375-37.878907 33.257812-2.480468 19.027344 9.535157 36.941407 28.078126 41.863282zm239.601562 279.878906h-189.203125c-17.097656 0-30.398437-14.6875-30.398437-33.5v-245.5h250v245.5c0 18.8125-13.300782 33.5-30.398438 33.5zm-158.601562-367.5c-.066407-5.207031 1.980468-10.21875 5.675781-13.894531 3.691406-3.675781 8.714843-5.695313 13.925781-5.605469h88.796875c5.210937-.089844 10.234375 1.929688 13.925781 5.605469 3.695313 3.671875 5.742188 8.6875 5.675782 13.894531v12.5h-128zm-71.199219 32.5h270.398437c9.941406 0 18 8.058594 18 18s-8.058594 18-18 18h-270.398437c-9.941407 0-18-8.058594-18-18s8.058593-18 18-18zm0 0" />
+									<path
+										d="m173.398438 154.703125c-5.523438 0-10 4.476563-10 10v189c0 5.519531 4.476562 10 10 10 5.523437 0 10-4.480469 10-10v-189c0-5.523437-4.476563-10-10-10zm0 0" /></svg>
+								Delete
+						</a></td>
 					</tr>
 				</table>
 			</div>
 			<div class="col">
 
-				<h3 th:text="'The Overall Class Average: '+${overall}+ '%'"></h3>
+				<h3>Overall Class Average:</h3><h3 class="avg-custom" th:text="${overall}+ '%'"></h3>
 
-				<h4>Average Grades for Each Grade Category</h4>
-				<table>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar"
+						th:text="${overall}+ '%'" th:style="'width:'+${overall}+'%;'">
+
+					</div>
+				</div>
+
+				<h3>Class Average by Assessment</h3>
+				<table class="table table-bordered custom-shadow">
+					<tr class="info">
+						<th>Name of Assessment</th>
+						<th>Class Average Grade</th>
+					</tr>
 					<tr>
 						<th>Exercises</th>
 						<td th:text="${avgsByCategory[0]} + '%' "></td>
@@ -149,53 +119,10 @@ Roles : <span sec:authentication="principal.authorities"></span>
 					</tr>
 
 				</table>
-				<br>
+				
 			</div>
 		</div>
 
-		<!-- 		<div class="row">
-
-			<div class="col-sm-3">
-
-
-
-				<h4>Average Grades for Each Grade Category</h4>
-				<table>
-					<tr>
-						<th>Exercises</th>
-						<td th:text="${avgsByCategory[0]} + '%' "></td>
-					</tr>
-					<tr>
-						<th>Assignment 1</th>
-						<td th:text="${avgsByCategory[1]} + '%' "></td>
-					</tr>
-					<tr>
-						<th>Assignment 2</th>
-						<td th:text="${avgsByCategory[2]} + '%' "></td>
-					</tr>
-					<tr>
-						<th>Midterm</th>
-						<td th:text="${avgsByCategory[3]} + '%' "></td>
-					</tr>
-					<tr>
-						<th>Final Exam</th>
-						<td th:text="${avgsByCategory[4]} + '%' "></td>
-					</tr>
-					<tr>
-						<th>Final Project</th>
-						<td th:text="${avgsByCategory[5]} + '%' "></td>
-					</tr>
-
-				</table>
-				<br>
-			</div>
-
-			<div class="col-sm-6">
-				<h3 th:text="'The Overall Class Average: '+${overall}+ '%'"></h3>
-			</div>
-
-
-		</div> -->
 
 	</div>
 

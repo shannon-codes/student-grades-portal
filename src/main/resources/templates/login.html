@@ -1,50 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Login</title>
-<link rel="stylesheet" type="text/css" media="all"
-href="../static/css/mycss.css" 
-th:href="@{/css/mycss.css}"/>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<th:block
+	th:include="templates/templates.html :: headerfiles (title='Login')">
+</th:block>
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
 </head>
 <body>
-<div id="page-wrap">
-<img src="../static/img/loginIcon.png"
-th:src="@{/img/loginIcon.png}">
-	<h1>Login page</h1>
-	<form th:action="@{/login}" method="post">
-		<div th:if="${param.error}">
-			<div class="alert">Invalid username or password</div>
-		</div>
-		<div th:if="${param.logout}">
-			<div class="alert">You have been logged out.
+
+	<header th:insert="templates/templates.html :: navHeader"></header>
+
+	<div
+		th:replace="templates/templates.html :: headerJumbotron (title='Login')"></div>
+
+		<form th:action="@{/login}" method="post" class="login-form">
+		
+			<div th:if="${param.error}">
+				<div class="alert">Invalid username or password</div>
 			</div>
-		</div>
-		<div>
-		<label for="username">Username</label>
-		<input type="text"
-		id="username"
-		name="username"
-		autofocus="autofocus"
-		placeholder="Username">
-		</div>
-		<div>
-		<label for="password">Password</label>
-		<input type="password"
-		id="password"
-		name="password"
-		placeholder="Password">
-		</div>
-		<div>
-		<input type="submit" 
-		name="login-submit"
-		id="login-submit"
-		value="Log In">
-		</div>
-	</form>
-<p><a href="/" th:href="@{/}">Back to home page</a></p>	
-</div>	
+			<div th:if="${param.logout}">
+				<div class="alert">You have been logged out.</div>
+			</div>
+			<div class="form-group">
+				<label for="username">Username</label> <input type="text"
+					id="username" name="username" autofocus="autofocus"
+					placeholder="Username" class="form-control">
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label> <input type="password"
+					id="password" name="password" placeholder="Password" class="form-control">
+			</div>
+			<div>
+				<input type="submit" name="login-submit" id="login-submit"
+					value="Log In" class="btn btn-primary btn-block btn-lg">
+			</div>
+		</form>
+		<div class="text-center"><a href="/" th:href="@{/}">Back to home page</a></div>
+
+	
 </body>
 </html>

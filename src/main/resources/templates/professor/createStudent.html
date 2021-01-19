@@ -1,31 +1,110 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-<!--/*/ <th:block th:include="professor/index.html :: headerfiles">
-</th:block> /*/-->
+<th:block
+	th:include="templates/templates.html :: headerfiles (title='Secured Area for Professor')">
+</th:block>
 </head>
 <body>
 
-<header th:insert="professor/index.html :: header"></header>
+	<header th:insert="templates/templates.html :: navHeader"></header>
 
-<h1>Create a New Student</h1>
-<div style="color:red" th:each="error:${errorMessage}" th:text="${error}"></div>
-<form action="#" th:action="@{/createStudent}" method="post" th:object="${student}">
-Student Name:<input type="text" th:field="*{name}" value=""><br>
-Student ID:<input type="text" th:field="*{studentId}"><br>
-<h5>Grades</h5>
-Exercises (0-100):<input type="text" th:field="*{exercises}"><br>
-Assignment 1 (0-100):<input type="text" th:field="*{assignment1}"><br>
-Assignment 2 (0-100):<input type="text" th:field="*{assignment2}"><br>
-Midterm (0-100):<input type="text" th:field="*{midterm}"><br>
-Final Exam (0-100):<input type="text" th:field="*{finalExam}"><br>
-Final Project (0-100):<input type="text" th:field="*{finalProject}"><br>
-<input type=submit value="Create Student">
-</form>
-<p><a href="/" th:href="@{/professor}">Go Back to Professor Main Page</a>
+	<div
+		th:replace="templates/templates.html :: headerJumbotron (title='Add a Student')"></div>
 
+	<div class="container custom-shadow custom-form">
+		<div class="error-custom" th:each="error:${errorMessage}"
+			th:text="${error}"></div>
+		<form class="form-horizontal" action="#" th:action="@{/createStudent}"
+			method="post" th:object="${student}">
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="studentName">Student
+					Name:</label>
+				<div class="col-sm-10">
+					<input type="text" id="studentName" name="studentName"
+						autofocus="autofocus" class="form-control" th:field="*{name}"
+						value="">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="studentId">Student
+					ID:</label>
+				<div class="col-sm-10">
+					<input type="text" id="studentId" name="studentId"
+						class="form-control" th:field="*{studentId}">
+				</div>
+			</div>
+
+			<div class="form-group">
+
+				<label class="control-label col-sm-2" for="exercises">Exercises
+					(0-100):</label>
+				<div class="col-sm-10">
+					<input type="number" min="0" max="100" step="0.01" id="exercises"
+						name="exercises" class="form-control" th:field="*{exercises}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="assignment1">Assignment
+					1 (0-100):</label>
+				<div class="col-sm-10">
+					<input type="number" min="0" max="100" step="0.01" id="assignment1"
+						name="assignment1" class="form-control" th:field="*{assignment1}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="assignment2">Assignment
+					2 (0-100):</label>
+				<div class="col-sm-10">
+					<input type="number" min="0" max="100" step="0.01" id="assignment2"
+						name="assignment2" class="form-control" th:field="*{assignment2}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="midterm">Midterm
+					(0-100):</label>
+				<div class="col-sm-10">
+					<input type="number" min="0" max="100" step="0.01" id="midterm" name="midterm"
+						class="form-control" th:field="*{midterm}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="finalExam">Final
+					Exam (0-100):</label>
+				<div class="col-sm-10">
+					<input type="number" min="0" max="100" step="0.01" id="finalExam"
+						name="finalExam" class="form-control" th:field="*{finalExam}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="finalProject">Final
+					Project (0-100):</label>
+				<div class="col-sm-10">
+					<input type="number" min="0" max="100" step="0.01" id="finalProject"
+						name="finalProject" class="form-control"
+						th:field="*{finalProject}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type=submit value="Create Student"
+						class="btn btn-primary btn-lg">
+				</div>
+			</div>
+		</form>
+	</div>
+	<p>
+		<a href="/" th:href="@{/professor}">Go Back to Professor Main Page</a>
 </body>
 </html>
 

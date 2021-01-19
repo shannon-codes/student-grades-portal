@@ -1,56 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<head th:fragment="headerfiles">
-  <title>Sheridan Student Grades Portal</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+<head>
+<th:block
+	th:include="templates/templates.html :: headerfiles (title='Home')">
+</th:block>
 </head>
+
 <body>
-<div th:fragment="header">
-<nav class="navbar navbar-expand-sm bg-light">
 
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a href="/" th:href="@{/}">Home&nbsp;&nbsp;&nbsp;</a>
-    </li>
-    <li class="nav-item">
-           <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+	<header th:insert="templates/templates.html :: navHeader"></header>
 
+	<div
+		th:replace="templates/templates.html :: headerJumbotron (title='Welcome to Student Grades Portal')"></div>
 
-<form action="#" th:action="@{/logout}" method="post">
-<input type="submit" value="logout" />
-</form>
-<br>
-<!--  User's name: <span sec:authentication="name"></span><br>
-Roles : <span sec:authentication="principal.authorities"></span>-->
-</div>
-    </li>
-  </ul>
-
-</nav>
-<div class="jumbotron text-center" style="background-image: url(/img/sheridan.jpg); background-size: auto;">
-  <h1>Sheridan Student Grades Portal</h1>
-</div>
-  
-  </div>
-
-<p style="text-align: center">Select to access your site
-<br>
-<a href="/student" th:href="@{/student}" class="btn btn-primary btn-lg">I am a Student</a>
-<br>
-<br>
-<br>
-<a href="/professor" th:href="@{/professor}" class="btn btn-primary btn-lg">I am a Professor</a>
-</p>
-
-
-
+	<div class="row text-center h2">Are you a student or professor?</div>
+<br><br>
+	<div class="row text-center">
+			<a href="/student" th:href="@{/student}"
+				class="box">I am a Student</a>
+			<a href="/professor" th:href="@{/professor}"
+				class="box">I am a Professor</a>
+	</div>
+	
 </body>
 </html>

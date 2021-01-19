@@ -23,7 +23,7 @@ public class LoggingAccessDeniedHandler implements AccessDeniedHandler {
 		
 		if(auth != null) {
 			System.out.println(auth.getName()
-					+ "was trying to access protected resource: "
+					+ " was trying to access protected resource: "
 					+ request.getRequestURI());
 			
 		}

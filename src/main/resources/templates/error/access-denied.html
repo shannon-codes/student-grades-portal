@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Access Denied</title>
+<th:block
+	th:include="templates/templates.html :: headerfiles (title='Access Denied to Secured Area')">
+</th:block>
 </head>
 <body>
-<h1>Access Denied</h1>
-<p><a href="/" th:href="@{/}">Back to home page</a>
+<header th:insert="templates/templates.html :: navHeader"></header>
+
+	<div
+		th:replace="templates/templates.html :: headerJumbotron (title='Access Denied')"></div>
+		<div class="row text-center">Sorry, your access was denied to this Secured Area.</div>
+<p><a href="/" th:href="@{/}">Back to home page</a></p>
 </body>
 </html>
+
