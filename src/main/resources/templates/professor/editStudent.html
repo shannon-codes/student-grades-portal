@@ -15,7 +15,7 @@
 
 	<div class="container custom-shadow custom-form">
 	
-		<div><h1>Student Assessments for <span class="greet-custom" th:text="${student.name}"></span></h1></div>
+		<div class="row text-center"><h1>Student Assessments for <span class="greet-custom" th:text="${student.name}"></span></h1></div>
 		
 		<div class="error-custom" th:each="error:${errorMessage}" th:text="${error}"></div>
 		
