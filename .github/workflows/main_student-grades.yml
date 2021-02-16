@@ -25,7 +25,6 @@ jobs:
       env: # Or as an environment variable
         AZ_DATABASE_NAME: ${{ secrets.AZ_DATABASE_NAME }}
         AZ_MYSQL_PASSWORD: ${{ secrets.AZ_MYSQL_PASSWORD }}
-        AZ_CONNECTION_STRING: ${{ secrets.AZ_CONNECTION_STRING }}
       run: mvn clean install
 
     - name: Deploy to Azure Web App
