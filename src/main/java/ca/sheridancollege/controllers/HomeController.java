@@ -50,7 +50,7 @@ public class HomeController{
 
 	@GetMapping("/access-denied")
 	public String accessDenied() {
-		return "/error/access-denied.html";
+		return "error/access-denied.html";
 	}
 
 	@GetMapping("/student")
