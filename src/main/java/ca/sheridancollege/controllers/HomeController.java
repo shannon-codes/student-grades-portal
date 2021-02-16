@@ -26,7 +26,7 @@ import ca.sheridancollege.beans.User;
 import ca.sheridancollege.repositories.*;
 
 @Controller
-public class HomeController {
+public class HomeController{
 
 	@Autowired
 	StudentRepository studentRepo;
