@@ -22,6 +22,10 @@ jobs:
         java-version: '8'
 
     - name: Build with Maven
+      env: # Or as an environment variable
+        AZ_CONNECTION_STRING: ${{ secrets.AZ_CONNECTION_STRING }}
+        AZ_DATABASE_NAME: ${{ secrets.AZ_DATABASE_NAME }}
+        AZ_MYSQL_PASSWORD: ${{ secrets.AZ_MYSQL_PASSWORD }}
       run: mvn clean install
 
     - name: Deploy to Azure Web App
