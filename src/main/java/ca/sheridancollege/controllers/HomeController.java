@@ -127,7 +127,7 @@ public class HomeController{
 		Student student = new Student();
 
 		model.addAttribute("student", student);
-		return "/professor/createStudent.html";
+		return "professor/createStudent.html";
 	}
 
 	@PostMapping("/createStudent")
@@ -142,7 +142,7 @@ public class HomeController{
 				myListErrors.add(error.getPropertyPath().toString().toUpperCase() + " :: " + error.getMessage());
 			}
 			model.addAttribute("errorMessage", myListErrors);
-			return "/professor/createStudent.html";
+			return "professor/createStudent.html";
 		} else {
 			User user = new User(student.getName(), encodePassword(student.getStudentId()));
 			user.getRoles().add(roleRepo.findByRolename("ROLE_STUDENT"));
@@ -158,7 +158,7 @@ public class HomeController{
 		if (studentRepo.findById(id) != null) {
 			Student student = studentRepo.findById(id);
 			model.addAttribute("student", student);
-			return "/professor/editStudent.html";
+			return "professor/editStudent.html";
 		} else {
 			return "redirect:/professor";
 		}
@@ -176,7 +176,7 @@ public class HomeController{
 				myListErrors.add(error.getPropertyPath().toString().toUpperCase() + " :: " + error.getMessage());
 			}
 			model.addAttribute("errorMessage", myListErrors);
-			return "/professor/editStudent.html";
+			return "professor/editStudent.html";
 		} else {
 
 			studentRepo.save(student);
